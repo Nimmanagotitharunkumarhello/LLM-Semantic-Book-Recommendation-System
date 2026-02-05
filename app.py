@@ -1,4 +1,4 @@
-"""import streamlit as st
+import streamlit as st
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -13,10 +13,12 @@ st.markdown("Find your next favorite book using semantic search!")
 
 @st.cache_resource
 def load_model():
-    return SentenceTransformer('all-MiniLM-L6-v2')
+    print("⏳ Loading SentenceTransformer model...")
+    return SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
 
 @st.cache_data
 def load_data():
+    print("⏳ Loading data...")
     # Download data if needed
     if not os.path.exists('backend/data/books.csv'):
         st.info("📥 Downloading dataset... (first time only)")
@@ -100,4 +102,4 @@ if st.button("Search", type="primary") or query:
         st.info("👆 Enter a search query to find books!")
 
 st.sidebar.markdown("---")
-st.sidebar.info("This app uses AI to find books based on semantic similarity. Powered by Sentence Transformers and FAISS.")"""
+st.sidebar.info("This app uses AI to find books based on semantic similarity. Powered by Sentence Transformers and FAISS.")
