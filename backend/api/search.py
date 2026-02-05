@@ -22,7 +22,7 @@ def load_resources():
     if os.path.exists(index_path) and os.path.exists(metadata_path):
         index = faiss.read_index(index_path)
         metadata_df = pd.read_csv(metadata_path).fillna("")
-        model = SentenceTransformer('all-MiniLM-L6-v2')
+        model = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
         print("Resources loaded.")
     else:
         print("Resources not found. Please run data pipeline.")
