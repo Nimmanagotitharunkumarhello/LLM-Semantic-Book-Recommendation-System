@@ -1,4 +1,4 @@
-import streamlit as st
+"""import streamlit as st
 import pandas as pd
 import numpy as np
 from sentence_transformers import SentenceTransformer
@@ -24,33 +24,33 @@ def load_data():
             subprocess.run(['python', 'backend/data_pipeline/download_data.py'], check=True)
         except Exception as e:
             st.error(f"Error downloading data: {e}")
-            return None, None, None
+            return None, None
     
     # Load books data
     df = pd.read_csv('backend/data/books.csv')
     
     # Generate embeddings if needed
-    if not os.path.exists('backend/data/faiss_index.bin'):
+    if not os.path.exists('backend/data/faiss.index'):
         st.info("🔄 Generating embeddings... This will take ~10 minutes (first time only)")
         try:
             subprocess.run(['python', 'backend/data_pipeline/generate_embeddings.py'], check=True)
         except Exception as e:
             st.error(f"Error generating embeddings: {e}")
-            return df, None, None
+            return df, None
     
     # Load embeddings and index
     try:
-        index = faiss.read_index('backend/data/faiss_index.bin')
-        embeddings = np.load('backend/data/book_embeddings.npy')
+        index = faiss.read_index('backend/data/faiss.index')
+        # embeddings = np.load('backend/data/book_embeddings.npy') # Not used/needed
     except Exception as e:
-        st.error(f"Error loading embeddings: {e}")
-        return df, None, None
+        st.error(f"Error loading index: {e}")
+        return df, None
     
-    return df, index, embeddings
+    return df, index
 
 # Load everything
 model = load_model()
-df, index, embeddings = load_data()
+df, index = load_data()
 
 # Check if data loaded successfully
 if df is None or index is None:
@@ -100,4 +100,4 @@ if st.button("Search", type="primary") or query:
         st.info("👆 Enter a search query to find books!")
 
 st.sidebar.markdown("---")
-st.sidebar.info("This app uses AI to find books based on semantic similarity. Powered by Sentence Transformers and FAISS.")
+st.sidebar.info("This app uses AI to find books based on semantic similarity. Powered by Sentence Transformers and FAISS.")"""
